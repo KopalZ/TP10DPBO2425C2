@@ -1,12 +1,6 @@
 # Janji
 Saya Naufal Zahid dengan NIM 2405787 mengerjakan Evaluasi Tugas Praktikum 10 dalam mata kuliah Desain dan Pemrograman Berorientasi Objek untuk keberkahanNya maka saya tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
 
-# Sistem Manajemen Data Balapan — PHP MVP
-
-Proyek ini merupakan implementasi website berbasis PHP Native dengan penerapan pola arsitektur **Model-View-Presenter (MVP)** untuk mengelola data Pembalap dan Kendaraan Balap.
-
-Penerapan MVP dalam proyek ini dilakukan secara ketat dengan memisahkan logika bisnis (Model), tampilan (View), dan penghubung (Presenter). Komunikasi antar komponen diatur menggunakan **Interface (Kontrak)** untuk menjaga konsistensi dan fleksibilitas kode.
-
 ---
 
 ## 🔗 Informasi Repositori
