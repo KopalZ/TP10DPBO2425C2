@@ -13,136 +13,148 @@ Penerapan MVP dalam proyek ini dilakukan secara ketat dengan memisahkan logika b
 
 | Kategori | Detail |
 | :--- | :--- |
-| **Nama Repo** | `TP9DPBO2425C2` |
-| **Database** | `mvp_db` (2 tabel: pembalap, kendaraan) |
-| **Arsitektur** | Model-View-Presenter (MVP) |
+| **Nama Repo** | `TP10DPBO2425C2` |
+| **Database** | `magic_rpg` (4 tabel: guilds, wizards, grimoires, potions) |
+| **Arsitektur** | Model-View-ViewModel (MVVM) |
+| **Tema** | RPG / Wizard Management System |
 
 ---
 
-## Tema Website: Data Statistik Balapan
+## 🧙‍♂️ Tema Website: Arcane Chronicles
 
-Website ini digunakan untuk mencatat spesifikasi kendaraan balap dan statistik pembalap.
+Website ini digunakan sebagai sistem manajemen database (DBMS) untuk dunia RPG fantasi.
 
-**Contoh penggunaan:**
-- User dapat menambahkan data **Pembalap** baru (Nama, Tim, Negara, Poin, Jumlah Menang).
-- User dapat menambahkan data **Kendaraan** baru (Merk, Tipe, Kapasitas Mesin, Top Speed).
-- Navigasi yang mudah antar entitas data.
+**Fitur Penggunaan:**
+- **Guilds (Induk):** Mengelola organisasi/asrama penyihir.
+- **Wizards (Anak):** Mengelola karakter penyihir yang tergabung dalam Guild.
+- **Grimoires (Cucu):** Mengelola buku sihir yang dimiliki oleh spesifik Wizard.
+- **Potions (Bebas):** Mengelola item konsumsi yang dijual di toko.
 
 ---
 
 ## 🗃️ Struktur Database
 
-### 1️⃣ Tabel `pembalap`
+<img width="711" height="517" alt="image" src="https://github.com/user-attachments/assets/16773afd-c75f-4403-b008-82237a3fdd2a" />
 
+Sistem ini menggunakan 4 tabel dengan relasi Foreign Key (FK) yang saling terhubung.
+
+### 1️⃣ Tabel `guilds` (Parent)
+Organisasi tempat penyihir bernaung.
 | Kolom | Tipe | Keterangan |
 | :--- | :--- | :--- |
-| `id` | INT (PK, AUTO_INCREMENT) | ID unik Pembalap |
-| `nama` | VARCHAR(255) | Nama Lengkap Pembalap |
-| `tim` | VARCHAR(255) | Nama Tim Balap |
-| `negara` | VARCHAR(255) | Asal Negara |
-| `poinMusim` | INT | Total Poin Musim Ini |
-| `jumlahMenang` | INT | Total Kemenangan (Podium 1) |
+| `id` | INT (PK) | ID Unik Guild |
+| `nama_guild` | VARCHAR | Nama Organisasi |
+| `base_region` | VARCHAR | Lokasi Markas |
+| `deskripsi` | TEXT | Keterangan Guild |
 
-### 2️⃣ Tabel `kendaraan`
-
+### 2️⃣ Tabel `wizards` (Child)
+Karakter penyihir (Berelasi dengan Guild).
 | Kolom | Tipe | Keterangan |
 | :--- | :--- | :--- |
-| `id` | INT (PK, AUTO_INCREMENT) | ID unik Kendaraan |
-| `merk` | VARCHAR(100) | Merk Pabrikan (misal: Ducati) |
-| `tipe` | VARCHAR(100) | Tipe/Model Motor/Mobil (misal: Desmosedici GP24) |
-| `cc_mesin` | INT | Kapasitas Mesin (CC) |
-| `top_speed` | INT | Kecepatan Maksimum (km/h) |
+| `id` | INT (PK) | ID Unik Wizard |
+| `nama_wizard` | VARCHAR | Nama Karakter |
+| `elemen` | VARCHAR | Tipe Elemen Sihir |
+| `level` | INT | Level Kekuatan |
+| `id_guild` | INT (FK) | Relasi ke tabel `guilds` |
+
+### 3️⃣ Tabel `grimoires` (Grandchild)
+Senjata/Buku sihir (Berelasi dengan Wizard).
+| Kolom | Tipe | Keterangan |
+| :--- | :--- | :--- |
+| `id` | INT (PK) | ID Unik Grimoire |
+| `nama_buku` | VARCHAR | Nama Item |
+| `magic_power` | INT | Kekuatan Sihir (Angka) |
+| `id_wizard` | INT (FK) | Relasi ke tabel `wizards` |
+
+### 4️⃣ Tabel `potions` (Standalone)
+Item tambahan tanpa relasi.
+| Kolom | Tipe | Keterangan |
+| :--- | :--- | :--- |
+| `id` | INT (PK) | ID Unik Potion |
+| `nama_potion` | VARCHAR | Nama Ramuan |
+| `efek` | VARCHAR | Efek Item |
+| `harga` | INT | Harga Item (Gold) |
 
 ---
 
-## 🧩 Fitur Utama (CRUD per Entitas)
+## 🧩 Fitur Utama
 
-Setiap entitas (Pembalap dan Kendaraan) memiliki fitur lengkap:
+Setiap entitas memiliki fitur **CRUD** lengkap:
 
 | Fitur | Deskripsi |
 | :--- | :--- |
-| **Create** | Menambahkan data baru melalui form input. |
-| **Read** | Menampilkan daftar data dalam bentuk tabel dinamis. |
-| **Update** | Mengedit data yang sudah ada (Form terisi otomatis / *Prefill*). |
-| **Delete** | Menghapus data dari database. |
+| **Create** | Menambahkan data baru (Guild, Wizard, Grimoire, Potion). |
+| **Read** | Menampilkan daftar data dengan penomoran otomatis & Join Table. |
+| **Update** | Mengedit data yang sudah ada (Form *pre-filled* data lama). |
+| **Delete** | Menghapus data (Cascade delete berlaku untuk relasi). |
+| **Styling** | Menggunakan CSS **Dark Mode** bertema Magic RPG. |
 
 ---
 
-## 🏗️ Struktur Folder Proyek (MVP)
+## 🏗️ Struktur Folder Proyek (MVVM)
 
-Struktur folder dirancang untuk memisahkan *concern* sesuai pola MVP.
+Struktur folder dirancang untuk memisahkan *concern* sesuai pola MVVM.
 
 ```bash
-TP9/
- ├── models/                  # [MODEL] Mengurus Data & Database
- │   ├── DB.php               # Koneksi Database (PDO)
- │   ├── Pembalap.php         # Class Objek Pembalap
- │   ├── Kendaraan.php        # Class Objek Kendaraan
- │   ├── TabelPembalap.php    # Query SQL Pembalap
- │   ├── TabelKendaraan.php   # Query SQL Kendaraan
- │   ├── KontrakModel.php     # Interface/Kontrak Model Pembalap
- │   └── KontrakModelKendaraan.php # Interface/Kontrak Model Kendaraan
+TP11/
+ ├── project/
+ │    ├── config/
+ │    │    └── Database.php         # Koneksi Database (PDO)
+ │    │
+ │    ├── database/
+ │    │    └── magic_rpg.sql        # File Import SQL
+ │    │
+ │    ├── models/                   # [MODEL] Struktur Data & Query
+ │    │    ├── Guild.php
+ │    │    ├── Wizard.php
+ │    │    ├── Grimoire.php
+ │    │    └── Potion.php
+ │    │
+ │    ├── viewmodels/               # [VIEWMODEL] Logika Bisnis & Mediator
+ │    │    ├── GuildViewModel.php
+ │    │    ├── WizardViewModel.php
+ │    │    ├── GrimoireViewModel.php
+ │    │    └── PotionViewModel.php
+ │    │
+ │    ├── views/                    # [VIEW] Antarmuka Pengguna (UI)
+ │    │    ├── guild_list.php       # Tampilan Tabel
+ │    │    ├── guild_form.php       # Tampilan Form (Add/Edit)
+ │    │    ├── ... (file view wizard, grimoire, potion lainnya)
+ │    │    └── ...
+ │    │
+ │    ├── style.css                 # Styling Global (Dark Theme)
+ │    └── index.php                 # Halaman Dashboard Utama
  │
- ├── views/                   # [VIEW] Mengurus Tampilan HTML
- │   ├── KontrakView.php      # Interface/Kontrak View
- │   ├── ViewPembalap.php     # Logic Tampilan Pembalap
- │   └── ViewKendaraan.php    # Logic Tampilan Kendaraan (Manipulasi Template)
- │
- ├── presenters/              # [PRESENTER] Penghubung Model & View
- │   ├── KontrakPresenter.php # Interface/Kontrak Presenter
- │   ├── PresenterPembalap.php
- │   ├── PresenterKendaraan.php
- │   └── KontrakPresenterKendaraan.php
- │
- ├── template/                # Template HTML Dasar
- │   ├── skin.html            # Kerangka Tabel Utama
- │   ├── form.html            # Form Input Pembalap
- │   └── form_kendaraan.html  # Form Input Kendaraan
- │
- ├── index.php                # Main Entry Point (Routing)
- └── mvp_db.sql               # File SQL Database
+ ├── dokumentasi/                   # Bukti Screen Record
+ └── README.md                      # Dokumentasi Proyek
 ```
-
 ---
 
-## Flow / Alur Program
-### 1. Routing (index.php)
-- Menerima request dari user.
-- Menentukan halaman mana yang diminta (?page=pembalap atau ?page=kendaraan).
-- Menginisialisasi Model, View, dan Presenter yang sesuai.
+## 🔄 Alur Program (MVVM Flow)
+### 1. View (UI): Pengguna berinteraksi dengan halaman web (misal: klik tombol "Simpan"). View mengirimkan input ke ViewModel.
 
-### 2. Presenter
-- Bertindak sebagai "Manajer".
-- Menerima perintah dari index.php (misal: tombol 'Simpan' ditekan).
-- Meminta Model untuk mengolah data (Simpan ke DB).
-- Meminta View untuk menampilkan hasil (Tampilkan Tabel/Form).
+### 2. ViewModel: Menerima input, memproses logika bisnis, dan memanggil method yang sesuai di Model.
 
-### 3. Model
-- Fokus hanya pada data.
-- Melakukan koneksi ke database menggunakan DB.php.
-- Menjalankan query SQL (INSERT, SELECT, UPDATE, DELETE).
+### 3. Model: Melakukan operasi database (CRUD) dan mengembalikan hasilnya ke ViewModel.
 
-Wajib mematuhi KontrakModel.
+### 4. ViewModel: Memperbarui state/data yang dimilikinya.
 
-### 4. View
-- Fokus hanya pada tampilan.
-- Menerima data dari Presenter.
-- Memuat file HTML dari folder template/.
+### 5. View: Secara otomatis menampilkan data terbaru yang diambil dari ViewModel (Data Binding).
 
-Melakukan manipulasi string (str_replace) untuk mengganti judul, header tabel, dan isi data sesuai konteks (Pembalap/Kendaraan).
 ---
 
 ## 💻 Cara Menjalankan
-1. Buat database baru di phpMyAdmin bernama mvp_db.
-2. Import file mvp_db.sql yang disertakan dalam repositori ini.
-3. Konfigurasi koneksi database di file models/DB.php (jika password/username berbeda).
-4. Jalankan aplikasi di browser:
-  ```Bash
-  http://localhost/TP9/index.php
-  ```
-5. Gunakan menu navigasi untuk berpindah antara Data Pembalap dan Data Kendaraan.
-
+1. Nyalakan XAMPP (Apache & MySQL).
+2. Buka `localhost/phpmyadmin`.
+3. Buat database baru dengan nama `magic_rpg`.
+4. Import file `project/database/magic_rpg.sql` ke dalam database tersebut.
+5. Pastikan konfigurasi di `project/config/Database.php` sesuai dengan user/pass MySQL Anda.
+6. Akses aplikasi di browser:
+   ```bash
+   http://localhost/project/index.php
+   ```
 ---
 
 ## 🎥 Dokumentasi
 
+https://github.com/user-attachments/assets/d17d0a23-1a5f-4abc-b532-f57e1e75228c
