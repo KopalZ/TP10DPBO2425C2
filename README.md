@@ -150,3 +150,7 @@ TP11/
 ## 🎥 Dokumentasi
 
 https://github.com/user-attachments/assets/d17d0a23-1a5f-4abc-b532-f57e1e75228c
+
+### Delete Grimoire
+https://github.com/user-attachments/assets/70ec2bae-8afe-4d9b-a4c4-b505fb809d1a
+
