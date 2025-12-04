@@ -95,9 +95,6 @@ TP11/
  │    ├── config/
  │    │    └── Database.php         # Koneksi Database (PDO)
  │    │
- │    ├── database/
- │    │    └── magic_rpg.sql        # File Import SQL
- │    │
  │    ├── models/                   # [MODEL] Struktur Data & Query
  │    │    ├── Guild.php
  │    │    ├── Wizard.php
@@ -119,21 +116,22 @@ TP11/
  │    ├── style.css                 # Styling Global (Dark Theme)
  │    └── index.php                 # Halaman Dashboard Utama
  │
+ ├── magic_rpg.sql                  # File Import SQL
  ├── dokumentasi/                   # Bukti Screen Record
  └── README.md                      # Dokumentasi Proyek
 ```
 ---
 
 ## 🔄 Alur Program (MVVM Flow)
-### 1. View (UI): Pengguna berinteraksi dengan halaman web (misal: klik tombol "Simpan"). View mengirimkan input ke ViewModel.
+1. View (UI): Pengguna berinteraksi dengan halaman web (misal: klik tombol "Simpan"). View mengirimkan input ke ViewModel.
 
-### 2. ViewModel: Menerima input, memproses logika bisnis, dan memanggil method yang sesuai di Model.
+2. ViewModel: Menerima input, memproses logika bisnis, dan memanggil method yang sesuai di Model.
 
-### 3. Model: Melakukan operasi database (CRUD) dan mengembalikan hasilnya ke ViewModel.
+3. Model: Melakukan operasi database (CRUD) dan mengembalikan hasilnya ke ViewModel.
 
-### 4. ViewModel: Memperbarui state/data yang dimilikinya.
+4. ViewModel: Memperbarui state/data yang dimilikinya.
 
-### 5. View: Secara otomatis menampilkan data terbaru yang diambil dari ViewModel (Data Binding).
+5. View: Secara otomatis menampilkan data terbaru yang diambil dari ViewModel (Data Binding).
 
 ---
 
